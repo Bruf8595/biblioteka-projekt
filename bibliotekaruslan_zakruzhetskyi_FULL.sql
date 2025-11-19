@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Ноя 02 2025 г., 15:03
+-- Время создания: Ноя 19 2025 г., 20:45
 -- Версия сервера: 10.4.32-MariaDB
 -- Версия PHP: 8.2.12
 
@@ -17,7 +17,9 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
-
+--
+-- База данных: `bibliotekaruslan_zakruzhetskyi`
+--
 
 DELIMITER $$
 --
@@ -41,46 +43,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateWypozyczenie` (IN `p_Id` INT,
 END$$
 
 DELIMITER ;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `adresy`
---
-
-CREATE TABLE `adresy` (
-  `Id` int(11) NOT NULL,
-  `IdUzytkownik` int(11) NOT NULL,
-  `Ulica` varchar(100) DEFAULT NULL,
-  `Miasto` varchar(100) DEFAULT NULL,
-  `KodPocztowy` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
-
---
--- Дамп данных таблицы `adresy`
---
-
-INSERT INTO `adresy` (`Id`, `IdUzytkownik`, `Ulica`, `Miasto`, `KodPocztowy`) VALUES
-(1, 1, 'ul. Floriańska 1', 'Kraków', '30-001'),
-(2, 2, 'ul. Marszałkowska 10', 'Warszawa', '00-001'),
-(3, 3, 'ul. Gdańska 5', 'Bydgoszcz', '85-001'),
-(4, 4, 'ul. Świdnicka 20', 'Wrocław', '50-001'),
-(5, 5, 'ul. Piotrkowska 100', 'Łódź', '90-001'),
-(6, 6, 'ul. Dworcowa 3', 'Katowice', '40-001'),
-(7, 7, 'ul. Grunwaldzka 15', 'Gdańsk', '80-001'),
-(8, 8, 'ul. Świętokrzyska 7', 'Poznań', '60-001'),
-(9, 9, 'ul. Mickiewicza 12', 'Szczecin', '70-001'),
-(10, 10, 'ul. 3 Maja 8', 'Lublin', '20-001'),
-(11, 11, 'ul. Reymonta 4', 'Rzeszów', '35-001'),
-(12, 12, 'ul. Sienkiewicza 9', 'Kielce', '25-001'),
-(13, 13, 'ul. Kopernika 2', 'Olsztyn', '10-001'),
-(14, 14, 'ul. Moniuszki 6', 'Białystok', '15-001'),
-(15, 15, 'ul. Chopina 11', 'Gorzów Wlkp.', '66-001'),
-(16, 16, 'ul. Słowackiego 3', 'Zielona Góra', '65-001'),
-(17, 17, 'ul. Piłsudskiego 5', 'Opole', '45-001'),
-(18, 18, 'ul. Legionów 7', 'Częstochowa', '42-001'),
-(19, 19, 'ul. Traugutta 1', 'Radom', '26-001'),
-(20, 20, 'ul. Wyszyńskiego 10', 'Sosnowiec', '41-001');
 
 -- --------------------------------------------------------
 
@@ -334,6 +296,36 @@ CREATE TABLE `niedostepneksiazki` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `pracownicy`
+--
+
+CREATE TABLE `pracownicy` (
+  `Id` int(11) NOT NULL,
+  `Imie` varchar(100) NOT NULL,
+  `Nazwisko` varchar(100) NOT NULL,
+  `DataUrodzenia` date NOT NULL,
+  `Stanowisko` varchar(100) DEFAULT 'Bibliotekarz'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+--
+-- Дамп данных таблицы `pracownicy`
+--
+
+INSERT INTO `pracownicy` (`Id`, `Imie`, `Nazwisko`, `DataUrodzenia`, `Stanowisko`) VALUES
+(1, 'Jan', 'Kowalski', '1985-03-15', 'Bibliotekarz'),
+(2, 'Maria', 'Nowak', '1992-07-22', 'Starszy bibliotekarz'),
+(3, 'Piotr', 'Wiśniewski', '1978-11-30', 'Kierownik'),
+(4, 'Anna', 'Wójcik', '1995-01-10', 'Bibliotekarz'),
+(5, 'Tomasz', 'Kamiński', '1980-05-18', 'Bibliotekarz'),
+(6, 'Katarzyna', 'Lewandowska', '2000-09-05', 'Stażyta'),
+(7, 'Michał', 'Zieliński', '1988-12-20', 'Bibliotekarz'),
+(8, 'Agnieszka', 'Szymańska', '1998-04-25', 'Bibliotekarz'),
+(9, 'Krzysztof', 'Woźniak', '1975-08-14', 'Kierownik zmiany'),
+(10, 'Magdalena', 'Kozłowska', '1993-06-30', 'Bibliotekarz');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `rezerwacje`
 --
 
@@ -464,6 +456,25 @@ INSERT INTO `typyuzytkownikow` (`Id`, `Nazwa`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `typy_adresow`
+--
+
+CREATE TABLE `typy_adresow` (
+  `Id` int(11) NOT NULL,
+  `Typ` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+--
+-- Дамп данных таблицы `typy_adresow`
+--
+
+INSERT INTO `typy_adresow` (`Id`, `Typ`) VALUES
+(2, 'Korespondencyjny'),
+(1, 'Zameldowania');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `uzytkownicy`
 --
 
@@ -502,6 +513,46 @@ INSERT INTO `uzytkownicy` (`Id`, `Imie`, `Nazwisko`, `Email`, `Telefon`, `DataRe
 (18, 'Dominik', 'Zając', 'dominik@example.com', '888999000', '2025-11-02', 2),
 (19, 'Emilia', 'Wieczorek', 'emilia@example.com', '999000111', '2025-11-02', 1),
 (20, 'Patryk', 'Jaworski', 'patryk@example.com', '000111222', '2025-11-02', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `uzytkownicy_adresy`
+--
+
+CREATE TABLE `uzytkownicy_adresy` (
+  `IdUzytkownik` int(11) NOT NULL,
+  `IdTypAdresu` int(11) NOT NULL,
+  `Ulica` varchar(100) DEFAULT NULL,
+  `Miasto` varchar(100) DEFAULT NULL,
+  `KodPocztowy` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+--
+-- Дамп данных таблицы `uzytkownicy_adresy`
+--
+
+INSERT INTO `uzytkownicy_adresy` (`IdUzytkownik`, `IdTypAdresu`, `Ulica`, `Miasto`, `KodPocztowy`) VALUES
+(1, 1, 'ul. Floriańska 1', 'Kraków', '30-001'),
+(2, 1, 'ul. Marszałkowska 10', 'Warszawa', '00-001'),
+(3, 1, 'ul. Gdańska 5', 'Bydgoszcz', '85-001'),
+(4, 1, 'ul. Świdnicka 20', 'Wrocław', '50-001'),
+(5, 1, 'ul. Piotrkowska 100', 'Łódź', '90-001'),
+(6, 1, 'ul. Dworcowa 3', 'Katowice', '40-001'),
+(7, 1, 'ul. Grunwaldzka 15', 'Gdańsk', '80-001'),
+(8, 1, 'ul. Świętokrzyska 7', 'Poznań', '60-001'),
+(9, 1, 'ul. Mickiewicza 12', 'Szczecin', '70-001'),
+(10, 1, 'ul. 3 Maja 8', 'Lublin', '20-001'),
+(11, 1, 'ul. Reymonta 4', 'Rzeszów', '35-001'),
+(12, 1, 'ul. Sienkiewicza 9', 'Kielce', '25-001'),
+(13, 1, 'ul. Kopernika 2', 'Olsztyn', '10-001'),
+(14, 1, 'ul. Moniuszki 6', 'Białystok', '15-001'),
+(15, 1, 'ul. Chopina 11', 'Gorzów Wlkp.', '66-001'),
+(16, 1, 'ul. Słowackiego 3', 'Zielona Góra', '65-001'),
+(17, 1, 'ul. Piłsudskiego 5', 'Opole', '45-001'),
+(18, 1, 'ul. Legionów 7', 'Częstochowa', '42-001'),
+(19, 1, 'ul. Traugutta 1', 'Radom', '26-001'),
+(20, 1, 'ul. Wyszyńskiego 10', 'Sosnowiec', '41-001');
 
 -- --------------------------------------------------------
 
@@ -658,13 +709,6 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 
 --
--- Индексы таблицы `adresy`
---
-ALTER TABLE `adresy`
-  ADD PRIMARY KEY (`Id`),
-  ADD KEY `IdUzytkownik` (`IdUzytkownik`);
-
---
 -- Индексы таблицы `autorzy`
 --
 ALTER TABLE `autorzy`
@@ -712,6 +756,12 @@ ALTER TABLE `lokalizacje`
   ADD PRIMARY KEY (`Id`);
 
 --
+-- Индексы таблицы `pracownicy`
+--
+ALTER TABLE `pracownicy`
+  ADD PRIMARY KEY (`Id`);
+
+--
 -- Индексы таблицы `rezerwacje`
 --
 ALTER TABLE `rezerwacje`
@@ -741,12 +791,26 @@ ALTER TABLE `typyuzytkownikow`
   ADD UNIQUE KEY `Nazwa` (`Nazwa`);
 
 --
+-- Индексы таблицы `typy_adresow`
+--
+ALTER TABLE `typy_adresow`
+  ADD PRIMARY KEY (`Id`),
+  ADD UNIQUE KEY `Typ` (`Typ`);
+
+--
 -- Индексы таблицы `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
   ADD PRIMARY KEY (`Id`),
   ADD UNIQUE KEY `Email` (`Email`),
   ADD KEY `IdTypUzytkownika` (`IdTypUzytkownika`);
+
+--
+-- Индексы таблицы `uzytkownicy_adresy`
+--
+ALTER TABLE `uzytkownicy_adresy`
+  ADD PRIMARY KEY (`IdUzytkownik`,`IdTypAdresu`),
+  ADD KEY `IdTypAdresu` (`IdTypAdresu`);
 
 --
 -- Индексы таблицы `wydawcy`
@@ -772,12 +836,6 @@ ALTER TABLE `zwroty`
 --
 -- AUTO_INCREMENT для сохранённых таблиц
 --
-
---
--- AUTO_INCREMENT для таблицы `adresy`
---
-ALTER TABLE `adresy`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT для таблицы `autorzy`
@@ -816,6 +874,12 @@ ALTER TABLE `lokalizacje`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
+-- AUTO_INCREMENT для таблицы `pracownicy`
+--
+ALTER TABLE `pracownicy`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT для таблицы `rezerwacje`
 --
 ALTER TABLE `rezerwacje`
@@ -838,6 +902,12 @@ ALTER TABLE `typyksiazek`
 --
 ALTER TABLE `typyuzytkownikow`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT для таблицы `typy_adresow`
+--
+ALTER TABLE `typy_adresow`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `uzytkownicy`
@@ -866,12 +936,6 @@ ALTER TABLE `zwroty`
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
-
---
--- Ограничения внешнего ключа таблицы `adresy`
---
-ALTER TABLE `adresy`
-  ADD CONSTRAINT `adresy_ibfk_1` FOREIGN KEY (`IdUzytkownik`) REFERENCES `uzytkownicy` (`Id`) ON DELETE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `egzemplarze`
@@ -908,6 +972,13 @@ ALTER TABLE `rezerwacje`
 --
 ALTER TABLE `uzytkownicy`
   ADD CONSTRAINT `uzytkownicy_ibfk_1` FOREIGN KEY (`IdTypUzytkownika`) REFERENCES `typyuzytkownikow` (`Id`) ON DELETE SET NULL;
+
+--
+-- Ограничения внешнего ключа таблицы `uzytkownicy_adresy`
+--
+ALTER TABLE `uzytkownicy_adresy`
+  ADD CONSTRAINT `uzytkownicy_adresy_ibfk_1` FOREIGN KEY (`IdUzytkownik`) REFERENCES `uzytkownicy` (`Id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `uzytkownicy_adresy_ibfk_2` FOREIGN KEY (`IdTypAdresu`) REFERENCES `typy_adresow` (`Id`);
 
 --
 -- Ограничения внешнего ключа таблицы `wypozyczenia`

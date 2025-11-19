@@ -103,6 +103,29 @@ CREATE TABLE `typyuzytkownikow` (
   `Id` int(11) NOT NULL,
   `Nazwa` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+CREATE TABLE typy_adresow (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    Typ VARCHAR(50) NOT NULL UNIQUE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+CREATE TABLE uzytkownicy_adresy (
+    IdUzytkownik INT NOT NULL,
+    IdTypAdresu INT NOT NULL,
+    Ulica VARCHAR(100),
+    Miasto VARCHAR(100),
+    KodPocztowy VARCHAR(10),
+    PRIMARY KEY (IdUzytkownik, IdTypAdresu),
+    FOREIGN KEY (IdUzytkownik) REFERENCES uzytkownicy(Id) ON DELETE CASCADE,
+    FOREIGN KEY (IdTypAdresu) REFERENCES typy_adresow(Id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+CREATE TABLE pracownicy (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    Imie VARCHAR(100) NOT NULL,
+    Nazwisko VARCHAR(100) NOT NULL,
+    DataUrodzenia DATE NOT NULL,
+    Stanowisko VARCHAR(100) DEFAULT 'Bibliotekarz'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 CREATE TABLE `uzytkownicy` (
   `Id` int(11) NOT NULL,

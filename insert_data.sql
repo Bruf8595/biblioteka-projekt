@@ -281,3 +281,17 @@ INSERT INTO `zwroty` (`Id`, `IdWypozyczenie`, `DataZwrotu`, `StanZwrotu`) VALUES
 (8, 15, '2025-11-08', 'Dobry'),
 (9, 17, '2025-11-12', 'Dobry'),
 (10, 19, '2025-11-16', 'Dobry');
+
+INSERT INTO typy_adresow (Typ) VALUES ('Zameldowania'),('Korespondencyjny');
+INSERT INTO uzytkownicy_adresy (IdUzytkownik, IdTypAdresu, Ulica, Miasto, KodPocztowy) SELECT Id, 1, Ulica, Miasto, KodPocztowy FROM adresy;
+INSERT INTO pracownicy (Imie, Nazwisko, DataUrodzenia, Stanowisko) VALUES
+('Jan','Kowalski','1985-03-15','Bibliotekarz'),
+('Maria','Nowak','1992-07-22','Starszy bibliotekarz'),
+('Piotr','Wiśniewski','1978-11-30','Kierownik'),
+('Anna','Wójcik','1995-01-10','Bibliotekarz'),
+('Tomasz','Kamiński','1980-05-18','Bibliotekarz'),
+('Katarzyna','Lewandowska','2000-09-05','Stażyta'),
+('Michał','Zieliński','1988-12-20','Bibliotekarz'),
+('Agnieszka','Szymańska','1998-04-25','Bibliotekarz'),
+('Krzysztof','Woźniak','1975-08-14','Kierownik zmiany'),
+('Magdalena','Kozłowska','1993-06-30','Bibliotekarz');
