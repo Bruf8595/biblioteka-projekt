@@ -15,3 +15,16 @@ MySQL database for a library system. Includes 12+ tables, PK/FK, views, procedur
 Or just import `FULL.sql`.
 
 Done on November 02, 2025.
+## Recent updates (November 2025)
+- Clients can now have two separate addresses (registration + correspondence) using many-to-many relationship  
+  → new tables: `typy_adresow` + `uzytkownicy_adresy` (old table `adresy` removed)
+- Added table `pracownicy` (Id, Imie, Nazwisko, DataUrodzenia, Stanowisko)
+- All primary keys already use AUTO_INCREMENT
+- Added queries for:
+  • alphabetical client list
+  • loans sorted by date (descending)
+  • workers born after 1999 or older than 40 years
+  • filtering clients by specific ID ranges
+  • joining books with authors (title + author name + ISBN)
+  • total number of clients (COUNT)
+  • most and least borrowed books with full details and loan count
